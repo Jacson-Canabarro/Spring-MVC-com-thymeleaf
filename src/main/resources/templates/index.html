@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www..thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="webjars/bootstrap/4.1.0/css/bootstrap.min.css"/>
+<script type="text/javascript" th:src="@{js/main.js}" src="../static/js/main.js"></script>
+</head>
+<body>
+	<div class="container">
+	<button class="btn btn-success nBtn">Novo</button>
+		<div class="card">
+			<div class="card-block">
+				<table class="table table-hover">
+						<thead>
+						<tr>
+							<th>ID</th>
+							<th>Pais</th>
+							<th>Capital</th>
+						 </tr>
+						</thead>
+							<tbody>
+								<tr th:each="pais :${data.content}">
+									<td th:text= "${pais.id}"></td>
+									<td th:text= "${pais.nome}"></td>
+									<td th:text= "${pais.capital}"></td>
+									<td> <a th:href="@{delete/(id=${pais.id})}" class="btn btn-danger delBtn">deletar</a></td>
+									<td> <a th:href="@{findOne/(id=${pais.id})}" class="btn btn-primary eBtn">editar</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<ul class="nav nav-pills">
+					<li class="nav-item" th:each="i :${#numbers.sequence(0,data.totalPages-1)}">
+						<a th:href="@{/(page=${i})}" th:text="${i}" class="nav-link" th:classappend="${currentPage}==${i}?'active':'' "></a>					
+					</li>
+					</ul>
+				</div>
+				<div >
+				
+				
+			</div>
+	</div>
+	
+	<div class="myForm">
+	 <form th:action="@{/save}" method="post">
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">atualizar ou cadastrar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="id" class="col-form-label">ID:</label>
+            <input type="text" class="form-control"  id="id" name="id" value="" />
+          </div>
+          <div class="form-group">
+            <label for="nome" class="col-form-label">Nome: </label>
+            <input type="text" class="form-control" id="nome" name="nome" value="" />
+          </div>
+             <div class="form-group">
+            <label for="capital" class="col-form-label">Capital:</label>
+            <input type="text" class="form-control" id="capital" name="capital" value="" />
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">fechar</button>
+        <input type="submit" class="btn btn-primary"  value="salvar"/>
+      </div>
+    	</div>
+  		</div>
+		</div>
+ 	 </form>
+	</div>
+	
+	
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Deletar Pais</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+ 		<p class="alert alert-danger">
+ 		 		Tem certeza que deseja deletar?
+ 		</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">fechar</button>
+        <a href="" class="btn btn-danger" id="delRef">deletar</a>
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+</body>
+</html>
